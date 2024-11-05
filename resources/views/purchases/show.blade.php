@@ -3,8 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <h2>Purchase Orders Details</h2>
-    <div class="card shadow-lg">
-        <div class="card-body">
+   
 
  
     <div class="d-flex justify-content-end mb-3">
@@ -88,8 +87,7 @@
             <strong>Checked By</strong>
         </div>
     </div>
-</div>
-</div>
+
 </div>
 
 <!-- Add CSS to hide non-printable elements during printing -->
