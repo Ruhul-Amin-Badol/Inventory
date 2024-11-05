@@ -13,6 +13,8 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the purchases.
      */
+
+     
     public function index()
     {
         $purchases = Purchase::with('supplier', 'purchaseItems')->get();

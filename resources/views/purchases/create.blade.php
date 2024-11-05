@@ -132,17 +132,17 @@
     </form>
 </div>
 
-<!-- JavaScript to Handle Dynamic Item Addition -->
+<!-- jQuery to Handle Dynamic Item Addition -->
 <script>
     let grandTotal = 0;
     let itemIndex = 0;
 
     function addItem() {
-        let productSelect = document.getElementById('product');
-        let productId = productSelect.value;
-        let productName = productSelect.options[productSelect.selectedIndex].text;
-        let quantity = document.getElementById('quantity').value;
-        let unitPrice = document.getElementById('unit_price').value;
+        let productSelect = $('#product');
+        let productId = productSelect.val();
+        let productName = productSelect.find('option:selected').text();
+        let quantity = $('#quantity').val();
+        let unitPrice = $('#unit_price').val();
         let totalPrice = (quantity * unitPrice).toFixed(2);
 
         // Validation
@@ -175,37 +175,33 @@
             <input type="hidden" name="product_items[${itemIndex}][quantity]" value="${quantity}">
             <input type="hidden" name="product_items[${itemIndex}][unit_price]" value="${unitPrice}">
         `;
-        document.querySelector('#items-table').insertAdjacentHTML('beforeend', row);
+        $('#items-table').append(row);
 
         // Update Grand Total
         grandTotal += parseFloat(totalPrice);
-        document.getElementById('grand-total').innerText = grandTotal.toFixed(2);
+        $('#grand-total').text(grandTotal.toFixed(2));
 
         // Reset Inputs
-        productSelect.value = '';
-        document.getElementById('quantity').value = '';
-        document.getElementById('unit_price').value = '';
+        productSelect.val('');
+        $('#quantity').val('');
+        $('#unit_price').val('');
 
         itemIndex++;
     }
 
     function removeItem(button, index, totalPrice) {
         // Remove the table row
-        let row = button.closest('tr');
-        row.remove();
+        $(button).closest('tr').remove();
 
         // Remove the corresponding hidden inputs
-        let productIdInput = document.querySelector(`input[name="product_items[${index}][product_id]"]`);
-        let quantityInput = document.querySelector(`input[name="product_items[${index}][quantity]"]`);
-        let unitPriceInput = document.querySelector(`input[name="product_items[${index}][unit_price]"]`);
-
-        if (productIdInput) productIdInput.remove();
-        if (quantityInput) quantityInput.remove();
-        if (unitPriceInput) unitPriceInput.remove();
+        $(`input[name="product_items[${index}][product_id]"]`).remove();
+        $(`input[name="product_items[${index}][quantity]"]`).remove();
+        $(`input[name="product_items[${index}][unit_price]"]`).remove();
 
         // Update Grand Total
         grandTotal -= parseFloat(totalPrice);
-        document.getElementById('grand-total').innerText = grandTotal.toFixed(2);
+        $('#grand-total').text(grandTotal.toFixed(2));
     }
 </script>
+
 @endsection
